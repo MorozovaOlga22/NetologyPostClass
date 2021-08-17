@@ -7,9 +7,12 @@ class WallServiceTest {
     @Test
     fun add() {
         cleanData()
-        assertEquals(0, WallService.posts.size)
-        WallService.add(createTestPost(0))
-        assertEquals(1, WallService.posts.size)
+        val post = createTestPost(1234567890)
+        val expectedPost = post.copy(id = 0)
+        val addedPost = WallService.add(post)
+        assertEquals(1234567890, post.id)
+        assertEquals(0, expectedPost.id)
+        assertEquals(expectedPost, addedPost)
     }
 
     @Test
