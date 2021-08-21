@@ -15,6 +15,7 @@ data class Post(
     val views: View,
     val postType: PostType,
     val postSource: PostSource?,
+    val attachments: Array<Attachment>,
     val geo: Geo,
     val signerId: Int?,
     val copyHistory: Array<Any>?,
