@@ -2,7 +2,7 @@ data class Post(
     val id: Int,
     val ownerId: Int,
     val fromId: Int,
-    val createdBy: Int,
+    val createdBy: Int?,
     val date: Int,
     val text: String,
     val replyOwnerId: Int,
@@ -14,7 +14,10 @@ data class Post(
     val reposts: Repost,
     val views: View,
     val postType: PostType,
-    val signerId: Int,
+    val postSource: PostSource?,
+    val geo: Geo,
+    val signerId: Int?,
+    val copyHistory: Array<Any>?,
     val canPin: Boolean,
     val canDelete: Boolean,
     val canEdit: Boolean,
@@ -22,7 +25,7 @@ data class Post(
     val markedAsAds: Boolean,
     val isFavorite: Boolean,
     val donut: Donut,
-    val postponedId: Int
+    val postponedId: Int?
 )
 
 enum class PostType {
