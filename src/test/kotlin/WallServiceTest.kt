@@ -1,3 +1,4 @@
+import attachment.*
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -93,6 +94,40 @@ class WallServiceTest {
             editMode = DonutEditMode.All
         )
 
+        val photoSize = PhotoSize(
+            type = PhotoSizeType.M,
+            url = "",
+            width = 300,
+            height = 300
+        )
+
+        val attachmentPhoto = AttachmentPhoto(
+            id = 0,
+            albumId = 0,
+            ownerId = 0,
+            userId = 0,
+            text = "",
+            date = 0,
+            sizes = arrayOf(photoSize),
+            width = 300,
+            height = 300
+        )
+
+        val photo = Photo(
+            photo = attachmentPhoto
+        )
+
+        val attachmentPostedPhoto = AttachmentPostedPhoto(
+            id = 0,
+            ownerId = 0,
+            photo130 = "",
+            photo604 = ""
+        )
+
+        val postedPhoto = PostedPhoto(
+            postedPhoto = attachmentPostedPhoto
+        )
+
         return Post(
             id = id,
             ownerId = 0,
@@ -110,6 +145,7 @@ class WallServiceTest {
             views = view,
             postType = PostType.Post,
             postSource = postSource,
+            attachments = arrayOf(photo, postedPhoto),
             geo = geo,
             signerId = 0,
             canPin = true,
