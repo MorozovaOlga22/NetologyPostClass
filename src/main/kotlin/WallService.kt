@@ -1,6 +1,7 @@
 object WallService {
     internal var posts = emptyArray<Post>()
     internal var nextPostId = 0
+    internal var comments = emptyArray<CreateComment>()
 
     fun add(post: Post): Post {
         val updatedPost = post.copy(id = nextPostId++)
@@ -17,5 +18,16 @@ object WallService {
             }
         }
         return false
+    }
+
+    fun createComment(comment: CreateComment) {
+        val postId = comment.postId
+        for (post in posts) {
+            if (post.id == postId) {
+                comments += comment
+                return
+            }
+        }
+        throw PostNotFoundException(postId)
     }
 }
