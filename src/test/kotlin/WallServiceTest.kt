@@ -72,6 +72,19 @@ class WallServiceTest {
             count = 20
         )
 
+        val postSource = PostSource(
+            type = PostSourceType.Vk,
+            platform = PostSourcePlatform.Android,
+            data = null,
+            url = "http://vk"
+        )
+
+        val geo = Geo(
+            type = "type1",
+            coordinates = "any country",
+            place = null
+        )
+
         val donut = Donut(
             isDonut = true,
             paidDuration = 1,
@@ -96,11 +109,14 @@ class WallServiceTest {
             reposts = repost,
             views = view,
             postType = PostType.Post,
+            postSource = postSource,
+            geo = geo,
             signerId = 0,
             canPin = true,
             canDelete = true,
             canEdit = true,
             isPinned = true,
+            copyHistory = emptyArray(),
             markedAsAds = true,
             isFavorite = true,
             donut = donut,
