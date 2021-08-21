@@ -61,10 +61,30 @@ class WallServiceTest {
         WallService.createComment(createCreateComment(4))
     }
 
+    @Test
+    fun reportComment_withGoodReason() {
+        cleanData()
+        assertEquals(0, WallService.reportComments.size)
+
+        val createReportComment = createReportComment(4u)
+        WallService.reportComment(createReportComment)
+
+        assertEquals(1, WallService.reportComments.size)
+        assertEquals(createReportComment, WallService.reportComments[0])
+    }
+
+    @Test(expected = BadCommentReasonException::class)
+    fun reportComment_withBadReason() {
+        cleanData()
+        val createReportComment = createReportComment(10u)
+        WallService.reportComment(createReportComment)
+    }
+
     private fun cleanData() {
         WallService.posts = emptyArray()
         WallService.nextPostId = 0
         WallService.comments = emptyArray()
+        WallService.reportComments = emptyArray()
     }
 
     private fun createTestPost(id: Int): Post {
@@ -195,5 +215,12 @@ class WallServiceTest {
             attachments = null,
             stickerId = 0u,
             guid = "b245fb36-c9b4-44d9-aa5a-ecd25cf67faf"
+        )
+
+    private fun createReportComment(reason: UInt) =
+        ReportComment(
+            ownerId = 0,
+            commentId = 0,
+            reason = reason
         )
 }
