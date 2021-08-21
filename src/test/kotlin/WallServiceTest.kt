@@ -36,9 +36,35 @@ class WallServiceTest {
         assertFalse(isUpdated)
     }
 
+    @Test
+    fun createComment_withExistId() {
+        cleanData()
+        WallService.add(createTestPost(0))
+        WallService.add(createTestPost(1))
+        WallService.add(createTestPost(2))
+
+        assertEquals(0, WallService.comments.size)
+
+        val comment = createCreateComment(0)
+        WallService.createComment(comment)
+
+        assertEquals(1, WallService.comments.size)
+        assertEquals(comment, WallService.comments[0])
+    }
+
+    @Test(expected = PostNotFoundException::class)
+    fun createComment_withNotExistId() {
+        cleanData()
+        WallService.add(createTestPost(0))
+        WallService.add(createTestPost(1))
+        WallService.add(createTestPost(2))
+        WallService.createComment(createCreateComment(4))
+    }
+
     private fun cleanData() {
         WallService.posts = emptyArray()
         WallService.nextPostId = 0
+        WallService.comments = emptyArray()
     }
 
     private fun createTestPost(id: Int): Post {
@@ -159,4 +185,15 @@ class WallServiceTest {
             postponedId = 0
         )
     }
+
+    private fun createCreateComment(postId: Int) =
+        CreateComment(
+            ownerId = 0,
+            postId = postId,
+            message = "",
+            replyToComment = 0,
+            attachments = null,
+            stickerId = 0u,
+            guid = "b245fb36-c9b4-44d9-aa5a-ecd25cf67faf"
+        )
 }

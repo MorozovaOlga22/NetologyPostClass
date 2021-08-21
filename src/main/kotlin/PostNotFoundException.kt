@@ -1,0 +1,1 @@
+class PostNotFoundException(postId: Int) : RuntimeException("Post with id $postId not found")
